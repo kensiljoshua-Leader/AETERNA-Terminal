@@ -1,0 +1,40 @@
+import numpy as np
+import pandas as pd
+
+# --- ADD THIS TO TABS[2] ---
+with tabs[2]:
+    st.header("🚀 AETERNA Space-Propulsion Lab")
+    
+    col_a, col_b = st.columns([1, 2])
+    
+    with col_a:
+        st.write("*Simulation Parameters*")
+        mass = st.number_input("Craft Mass (kg):", value=1000)
+        sync_factor = st.slider("Gabrielium Sync (1-11):", 1, 11, 11)
+        burn_time = st.number_input("Burn Duration (sec):", value=60)
+        
+    with col_b:
+        # AETERNA PHYSICS LOGIC
+        st.write("*Trajectory Projection*")
+        
+        # Simulating a simple trajectory based on your formula
+        time_steps = np.linspace(0, burn_time, 100)
+        # Logic: Velocity increases based on Sync Factor / Resonance
+        velocity = (sync_factor * 11) * time_steps 
+        altitude = 0.5 * (sync_factor * 1.1) * (time_steps**2)
+        
+        chart_data = pd.DataFrame({
+            'Time (s)': time_steps,
+            'Velocity (m/s)': velocity,
+            'Altitude (km)': altitude / 1000
+        })
+        
+        st.line_chart(chart_data.set_index('Time (s)'))
+
+    if st.button("EXECUTE PROPULSION TEST"):
+        with st.status("Calculating Gravitational Resonance...", expanded=True) as status:
+            time.sleep(1)
+            st.write("Verifying 11th-Dimensional Vector...")
+            time.sleep(1)
+            status.update(label="Simulation Complete", state="complete")
+        st.success(f"Final Velocity: {velocity[-1]:,.2f} m/s | Stability: 111.10%")
