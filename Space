@@ -1,0 +1,8 @@
+# Logic: Acceleration = Force / Mass. Force is driven by Sync Factor.
+acceleration = (sync_factor * 50000) / mass
+g_force = acceleration / 9.8 
+
+if g_force > 9:
+    st.warning(f"⚠️ DANGER: G-Force is {g_force:.1f}. Structural failure imminent.")
+else:
+    st.success(f"✅ STABLE: G-Force is {g_force:.1f}. Pilot safe for 11th-Dimensional travel.")
